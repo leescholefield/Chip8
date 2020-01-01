@@ -1,0 +1,3 @@
+﻿Data Registers:
+	15 (+1 -- try not to store in last register) 8-bit registers
+		V0 - VF
