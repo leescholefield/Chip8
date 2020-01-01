@@ -81,6 +81,9 @@ namespace Chip8.Emulator
         /// </summary>
         public void Cycle()
         {
+            if (Loaded == false)
+                throw new ApplicationException("No rom has been loaded");
+
             Opcode = (Memory[ProgramCounter << 8]) | Memory[ProgramCounter + 1];
             ExecuteOpcode(Opcode);
         }
