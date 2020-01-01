@@ -1,5 +1,9 @@
 ﻿namespace Chip8.Emulator
 {
+
+    /// <summary>
+    /// Contains 16 8-bit registers. These are V0 through VF.
+    /// </summary>
     public class Registers
     {
 
