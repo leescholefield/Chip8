@@ -56,6 +56,17 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Emulator\Opcodes\AddToVxTest.cs" />
+    <Compile Include="Emulator\Opcodes\CallSubroutineTest.cs" />
+    <Compile Include="Emulator\Opcodes\ClearScreenTest.cs" />
+    <Compile Include="Emulator\Opcodes\JumpToAddressTest.cs" />
+    <Compile Include="Emulator\Opcodes\ReturnFromSubroutineTest.cs" />
+    <Compile Include="Emulator\Opcodes\SetVxEqualToVy.cs" />
+    <Compile Include="Emulator\Opcodes\SetVxToTest.cs" />
+    <Compile Include="Emulator\Opcodes\SetVxToVxOrVy.cs" />
+    <Compile Include="Emulator\Opcodes\SkipInstructionIfVxEqualsVyTest.cs" />
+    <Compile Include="Emulator\Opcodes\SkipInstructionIfVxEqualTest.cs" />
+    <Compile Include="Emulator\Opcodes\SkipInstructionIfVxNotEqualTest.cs" />
     <Compile Include="Emulator\RegistersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
