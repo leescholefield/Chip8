@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chip8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="8000" Width="1000" Loaded="Window_Loaded">
+        Title="MainWindow" Height="400" Width="650" Loaded="Window_Loaded" KeyDown="Key_Down" KeyUp="Key_Up">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVis" />
@@ -21,40 +21,14 @@
             <ColumnDefinition Width="600" />
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="5*" />
-            <RowDefinition Height="5*" />
-        </Grid.RowDefinitions>
 
-        <Grid Grid.Column="0" Grid.Row="0" x:Name="screenRoot" Height="400"/>
+        <Grid Grid.Column="0" x:Name="screenRoot"/>
 
-        
-        
-        <StackPanel Grid.Column="1" Grid.Row="0">
+        <StackPanel Grid.Column="1">
             <Label x:Name="opcodeLabel"/>
             <Label x:Name="pcLabel" />
             <Label x:Name="indexLabel" />
-
-            <Label x:Name="register0" />
-            <Label x:Name="register1" />
-            <Label x:Name="register2" />
-            <Label x:Name="register3" />
-            <Label x:Name="register4" />
-            <Label x:Name="register5" />
-            <Label x:Name="register6" />
-            <Label x:Name="register7" />
-            <Label x:Name="register8" />
-            <Label x:Name="register9" />
-            <Label x:Name="register10" />
-            <Label x:Name="register11" />
-            <Label x:Name="register12" />
-            <Label x:Name="register13" />
-            <Label x:Name="register14" />
-            <Label x:Name="register15" />
-
         </StackPanel>
-
-        <local:Keypad x:Name="keypad" Grid.Row="1" Grid.Column="0" Height="300"/>
 
     </Grid>
 </Window>
