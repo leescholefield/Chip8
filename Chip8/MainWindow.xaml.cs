@@ -11,6 +11,8 @@ namespace Chip8
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
+    /// 
+    /// TODO methods for changing keybindings and pixel colors
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -19,31 +21,7 @@ namespace Chip8
 
         private WriteableBitmap GameScreen { get; set; }
 
-        private static Color PIXEL_ON = Colors.Green;
-        private static Color PIXEL_OFF = Colors.LightGreen;
-
-        /// <summary>
-        /// Maps a Input.Key to a byte value
-        /// </summary>
-        private readonly Dictionary<Key, byte> KeyDictionary = new Dictionary<Key, byte> 
-        {
-                {Key.NumPad0, 0x0 },
-                {Key.NumPad1, 0x1},
-                {Key.NumPad2, 0x2},
-                {Key.NumPad3, 0x3},
-                {Key.NumPad4, 0x4},
-                {Key.NumPad5, 0x5},
-                {Key.NumPad6, 0x6},
-                {Key.NumPad7, 0x7},
-                {Key.NumPad8, 0x8},
-                {Key.NumPad9, 0x9},
-                {Key.C, 0xC},
-                {Key.D, 0xD},
-                {Key.E, 0xE},
-                {Key.F, 0xF},
-                {Key.A, 0xA},
-                {Key.B, 0xB}
-        };
+        private Chip8Settings UserSettings = new Chip8Settings();
 
         public MainWindow()
         {
@@ -72,7 +50,7 @@ namespace Chip8
 
         private void Key_Down(object sender, KeyEventArgs e)
         {
-            if (KeyDictionary.TryGetValue(e.Key, out byte pressed))
+            if (UserSettings.KeyBindings.TryGetValue(e.Key, out byte pressed))
             {
                 Chip8.KeypadArray.KeyPressed(pressed);
             }
@@ -80,7 +58,7 @@ namespace Chip8
 
         private void Key_Up(object sender, KeyEventArgs e)
         {
-            if (KeyDictionary.TryGetValue(e.Key, out byte pressed))
+            if (UserSettings.KeyBindings.TryGetValue(e.Key, out byte pressed))
             {
                 Chip8.KeypadArray.KeyReleased(pressed);
             }
@@ -112,7 +90,7 @@ namespace Chip8
         /// Writes the values in <see cref="Chip8Intepreter.GraphicsArray"/> into the <see cref="GameScreen"/>.
         /// 
         /// The process for this is somewhat inefficient at the moment, since it will have to loop over the entire GraphicsArray and 
-        /// then set the corresponding pixel color in the GameScreen to <see cref="PIXEL_ON"/> or <see cref="PIXEL_OFF"/>, depending on 
+        /// then set the corresponding pixel color in the GameScreen to UserSettings.OnColor or UserSettings.OfColor, depending on 
         /// if the value in GraphicsArray is true or false.
         /// 
         /// In the future I would like to have a system where the GraphicsArray keeps track of the pixel positions whose value has changed
@@ -127,7 +105,7 @@ namespace Chip8
 
                 for (int i = 0; i < Chip8.GraphicsArray.Length; i++)
                 {
-                    var fill = Chip8.GraphicsArray[i] == true ? PIXEL_ON : PIXEL_OFF;
+                    var fill = Chip8.GraphicsArray[i] == true ? UserSettings.OnColor : UserSettings.OffColor;
 
                     int rgbColor = fill.R << 16;
                     rgbColor |= fill.G << 8;
@@ -153,6 +131,20 @@ namespace Chip8
             {
                 // release the back buffer so the screen can be updated
                 GameScreen.Unlock();
+            }
+        }
+
+        private void optionsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            Window w = new Options(UserSettings);
+            if (w.ShowDialog() == true)
+            {
+                var newSettings = ((Options)w).NewSettings;
+                if (newSettings != null)
+                {
+                    UserSettings = newSettings;
+                }
             }
         }
     }

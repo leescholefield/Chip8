@@ -1,0 +1,38 @@
+﻿<Window x:Class="Chip8.ChangeKeyDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chip8"
+        mc:Ignorable="d"
+        Title="ChangeKeyDialog" SizeToContent="WidthAndHeight"
+        Loaded="Window_Loaded"
+        >
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="1" Orientation="Horizontal">
+            <Label Grid.Column="1">Please input the new key for </Label>
+            <Label x:Name="input_changing_value" Content="{Binding KeyChanging}" />
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+            <Label >Key:</Label>
+            <Label x:Name="new_key_value" Content="{Binding NewKey, Converter={StaticResource keyToStringConverter}}"/>
+            <Label x:Name="input_error_text" Content="Please input a key or click cancel" Foreground="Red" Visibility="Hidden" />
+        </StackPanel>
+
+        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0,15,0,0">
+            <Button IsDefault="True" Name="btnDialogOk" Click="OkButton_Click" MinWidth="60" Margin="0,0,10,0">_Ok</Button>
+            <Button IsCancel="True" MinWidth="60" Click="CancelButton_Click">_Cancel</Button>
+        </WrapPanel>
+    </Grid>
+</Window>

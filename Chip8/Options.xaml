@@ -1,0 +1,62 @@
+﻿<Window x:Class="Chip8.Options"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Chip8"
+        mc:Ignorable="d"
+        Title="Options" Height="450" Width="250">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0 0 0 3">
+            <StackPanel >
+                <Label Content="Colors" />
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="On" />
+                    <ComboBox ItemsSource="{Binding ColorDictionary}" DisplayMemberPath="Key" 
+                              SelectedValue="{Binding SelectedOnColor}" />
+                    <Rectangle Fill="{Binding SelectedOnColor.Value, Converter={StaticResource colorToBrushConverter}}" 
+                               Height="20" Width="20"
+                               HorizontalAlignment="Right"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Off" />
+                    <ComboBox ItemsSource="{Binding ColorDictionary}" DisplayMemberPath="Key"
+                              SelectedValue="{Binding SelectedOffColor}"/>
+                    <Rectangle Fill="{Binding SelectedOffColor.Value, Converter={StaticResource colorToBrushConverter}}" 
+                               Height="20" Width="20"
+                               HorizontalAlignment="Right"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="0 0 0 3">
+            <DataGrid x:Name="bindings_grid" ItemsSource="{Binding OptionsInputs}" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      MouseDoubleClick="bindings_grid_MouseDoubleClick"
+                     >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Key"
+                                        IsReadOnly="True"
+                                        Binding="{Binding Chip8Input, Converter={StaticResource hexToStringConverter}}" />
+                    <DataGridTextColumn Header="Mapping"
+                                        Binding="{Binding Key, Converter={StaticResource keyToStringConverter}}" 
+                                        />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Button x:Name="cancel_button" Content="Cancel" Click="cancel_button_Click" HorizontalAlignment="Right" />
+            <Button x:Name="ok_button" Content="Apply" Click="ok_button_Click" HorizontalAlignment="Right" IsHitTestVisible="False"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

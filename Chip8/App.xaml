@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Chip8"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <local:ColorToBrushConverter x:Key="colorToBrushConverter" />
+        <local:HexToStringConverter x:Key="hexToStringConverter" />
+        <local:KeyToStringConverter x:Key="keyToStringConverter" />
     </Application.Resources>
 </Application>

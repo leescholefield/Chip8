@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,7 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Keypad.xaml">
+    <Page Include="ChangeKeyDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -67,20 +69,31 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ChangeKeyDialog.xaml.cs">
+      <DependentUpon>ChangeKeyDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Chip8Settings.cs" />
+    <Compile Include="Converters\ColorToBrushConverter.cs" />
+    <Compile Include="Converters\KeyToStringConverter.cs" />
     <Compile Include="Emulator\Chip8Interpreter.cs" />
     <Compile Include="Emulator\Keypad.cs" />
     <Compile Include="Emulator\Opcodes.cs" />
     <Compile Include="Emulator\Registers.cs" />
     <Compile Include="Emulator\Screen.cs" />
-    <Compile Include="Keypad.xaml.cs">
-      <DependentUpon>Keypad.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Converters\HexToStringConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Options.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Options.xaml.cs">
+      <DependentUpon>Options.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,8 +118,8 @@
     <EmbeddedResource Include="Roms\test_opcode.ch8">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Content Include="Roms\c8_test.c8">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="Roms\c8_test.ch8">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Roms\Cave.ch8">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -119,6 +132,12 @@
     </Content>
     <Content Include="Roms\BC_test.ch8">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Roms\gg.ch8">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Roms\space_invaders.ch8">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

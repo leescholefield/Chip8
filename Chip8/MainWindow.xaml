@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chip8"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="650" Loaded="Window_Loaded" KeyDown="Key_Down" KeyUp="Key_Up">
+        Title="MainWindow" SizeToContent="WidthAndHeight" Loaded="Window_Loaded" KeyDown="Key_Down" KeyUp="Key_Up">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVis" />
@@ -28,6 +28,7 @@
             <Label x:Name="opcodeLabel"/>
             <Label x:Name="pcLabel" />
             <Label x:Name="indexLabel" />
+            <Button x:Name="optionsButton" Click="optionsButton_Click">Options</Button>
         </StackPanel>
 
     </Grid>
