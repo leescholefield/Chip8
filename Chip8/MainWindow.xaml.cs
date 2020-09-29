@@ -23,6 +23,8 @@ namespace Chip8
 
         private Chip8Settings UserSettings = new Chip8Settings();
 
+        private bool gamePaused = false;
+
         public MainWindow()
         {
             DataContext = this;
@@ -55,25 +57,26 @@ namespace Chip8
         
         #region Screen drawing
 
-        int frameCounter;
+        /// <summary>
+        /// This is only used to demonstrate it works; it was designed for simple annimations, not to render 2D games (no matter 
+        /// how graphically simple). Now I've got the rest of the program working as intended I need to think about removing this.
+        /// </summary>
         private void CompositionTarget_Rendering(object sender, EventArgs args)
         {
-            int refreshRate = 1; // refreshing every hit
-            if (frameCounter % refreshRate == 0)
+            if (gamePaused)
+                return;
+
+            Chip8.Cycle();
+
+            if (Chip8.Redraw)
             {
-                Chip8.Cycle();
-
-               if (Chip8.Redraw)
-                {
-                    DrawScreen();
-                    Chip8.Redraw = false;
-                }
-
-               
-                opcodeLabel.Content = Chip8.Opcode.ToString("X");
-                pcLabel.Content = Chip8.ProgramCounter;
+                DrawScreen();
+                Chip8.Redraw = false;
             }
-            frameCounter++;
+
+
+            opcodeLabel.Content = Chip8.Opcode.ToString("X");
+            pcLabel.Content = Chip8.ProgramCounter;
         }
 
         /// <summary>
@@ -130,10 +133,27 @@ namespace Chip8
 
         private void Key_Down(object sender, KeyEventArgs e)
         {
+            // special case for pause button
+            if (e.Key == Key.Space)
+            {
+                if (gamePaused)
+                {
+                    paused_screen.Visibility = Visibility.Hidden;
+                    gamePaused = false;
+                }
+                else
+                {
+                    paused_screen.Visibility = Visibility.Visible;
+                    gamePaused = true;
+                }
+            }
+
             if (UserSettings.KeyBindings.TryGetValue(e.Key, out byte pressed))
             {
                 Chip8.KeypadArray.KeyPressed(pressed);
             }
+
+            e.Handled = true;
         }
 
         private void Key_Up(object sender, KeyEventArgs e)
@@ -148,6 +168,8 @@ namespace Chip8
 
         private void optionsButton_Click(object sender, RoutedEventArgs e)
         {
+            gamePaused = true;
+            paused_screen.Visibility = Visibility.Visible;
 
             Window w = new Options(UserSettings);
             if (w.ShowDialog() == true)
@@ -157,16 +179,26 @@ namespace Chip8
                 {
                     UserSettings = newSettings;
                 }
-            }
+
+               
+            } 
+            
+            screenRoot.Focus();
         }
 
         private void GameSelectButton_Click(object sender, RoutedEventArgs e)
         {
+            gamePaused = true;
+            paused_screen.Visibility = Visibility.Visible;
+
             Window w = new SelectGameDialog();
             if (w.ShowDialog() == true)
             {
                 KeyValuePair<string, string> game = ((SelectGameDialog)w).SelectedGame;
                 LoadGame(game.Value);
+
+                gamePaused = false;
+                paused_screen.Visibility = Visibility.Hidden;
             }
         }
     }

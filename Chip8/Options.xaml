@@ -55,7 +55,7 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal">
             <Button x:Name="cancel_button" Content="Cancel" Click="cancel_button_Click" HorizontalAlignment="Right" />
-            <Button x:Name="ok_button" Content="Apply" Click="ok_button_Click" HorizontalAlignment="Right" IsHitTestVisible="False"/>
+            <Button x:Name="ok_button" Content="Apply" Click="ok_button_Click" HorizontalAlignment="Right"/>
         </StackPanel>
 
     </Grid>

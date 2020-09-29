@@ -46,11 +46,24 @@ namespace Chip8
 
         private void KeyDownCallback(object sender, KeyEventArgs e)
         {
-            NewKey = e.Key;
-            newKeyRegistered = true;
-            // doesn't matter if its already hidden. Not much cost
-            input_error_text.Visibility = Visibility.Hidden;
-            // stop propogating to ok / cancel buttons
+            // ignore it if it is space
+            if (e.Key == Key.Space)
+            {
+                input_error_text.Content = "Space key is reserved for pausing the game";
+                input_error_text.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+
+                NewKey = e.Key;
+                newKeyRegistered = true;
+                // doesn't matter if its already hidden. Not much cost
+                input_error_text.Visibility = Visibility.Hidden;
+            }
+
+            // stop child key pressed events being triggered
+            // to handle a bug where 'o' key was propogating to the 'OK' button
             e.Handled = true;
         }
 

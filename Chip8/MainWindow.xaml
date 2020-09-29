@@ -22,14 +22,17 @@
             <ColumnDefinition Width="100" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" x:Name="screenRoot"/>
+        <Grid x:Name="paused_screen" Grid.Column="0" Opacity="0.5" Panel.ZIndex="5" Background="PaleVioletRed" Visibility="Hidden" IsHitTestVisible="False">
+            <Label Content="Paused" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Column="0" x:Name="screenRoot" Panel.ZIndex="1"/>
 
         <StackPanel Grid.Column="1">
             <Label x:Name="opcodeLabel"/>
             <Label x:Name="pcLabel" />
             <Label x:Name="indexLabel" />
-            <Button x:Name="optionsButton" Click="optionsButton_Click">Options</Button>
-            <Button x:Name="gameSelectButton" Click="GameSelectButton_Click">Games</Button>
+            <Button x:Name="optionsButton" Click="optionsButton_Click" Focusable="False">Options</Button>
+            <Button x:Name="gameSelectButton" Click="GameSelectButton_Click" Focusable="False">Games</Button>
         </StackPanel>
 
     </Grid>
