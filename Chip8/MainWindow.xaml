@@ -29,6 +29,7 @@
             <Label x:Name="pcLabel" />
             <Label x:Name="indexLabel" />
             <Button x:Name="optionsButton" Click="optionsButton_Click">Options</Button>
+            <Button x:Name="gameSelectButton" Click="GameSelectButton_Click">Games</Button>
         </StackPanel>
 
     </Grid>

@@ -29,9 +29,14 @@ namespace Chip8
             InitializeComponent();
 
             Chip8 = new Chip8Intepreter();
-            Chip8.LoadRom("Roms/space_invaders.ch8");
+            LoadGame("Roms/space_invaders.ch8");
+        }
 
+        private void LoadGame(string loc)
+        {
+            Chip8.LoadRom(loc);
             CreateScreen();
+
             Image i = new Image { Width = 600, Height = 300 };
             RenderOptions.SetBitmapScalingMode(i, BitmapScalingMode.NearestNeighbor);
             i.Source = GameScreen;
@@ -47,23 +52,8 @@ namespace Chip8
         {
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
-
-        private void Key_Down(object sender, KeyEventArgs e)
-        {
-            if (UserSettings.KeyBindings.TryGetValue(e.Key, out byte pressed))
-            {
-                Chip8.KeypadArray.KeyPressed(pressed);
-            }
-        }
-
-        private void Key_Up(object sender, KeyEventArgs e)
-        {
-            if (UserSettings.KeyBindings.TryGetValue(e.Key, out byte pressed))
-            {
-                Chip8.KeypadArray.KeyReleased(pressed);
-            }
-        }
-
+        
+        #region Screen drawing
 
         int frameCounter;
         private void CompositionTarget_Rendering(object sender, EventArgs args)
@@ -134,6 +124,28 @@ namespace Chip8
             }
         }
 
+        #endregion
+
+        #region Input handling
+
+        private void Key_Down(object sender, KeyEventArgs e)
+        {
+            if (UserSettings.KeyBindings.TryGetValue(e.Key, out byte pressed))
+            {
+                Chip8.KeypadArray.KeyPressed(pressed);
+            }
+        }
+
+        private void Key_Up(object sender, KeyEventArgs e)
+        {
+            if (UserSettings.KeyBindings.TryGetValue(e.Key, out byte pressed))
+            {
+                Chip8.KeypadArray.KeyReleased(pressed);
+            }
+        }
+
+        #endregion
+
         private void optionsButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -145,6 +157,16 @@ namespace Chip8
                 {
                     UserSettings = newSettings;
                 }
+            }
+        }
+
+        private void GameSelectButton_Click(object sender, RoutedEventArgs e)
+        {
+            Window w = new SelectGameDialog();
+            if (w.ShowDialog() == true)
+            {
+                KeyValuePair<string, string> game = ((SelectGameDialog)w).SelectedGame;
+                LoadGame(game.Value);
             }
         }
     }
