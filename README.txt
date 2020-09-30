@@ -1,4 +1,4 @@
-# Chip8
+#Chip8
 
 A Chip-8 interpreter written for C# WPF
 
