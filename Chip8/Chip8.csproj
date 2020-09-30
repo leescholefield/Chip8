@@ -125,6 +125,9 @@
     <EmbeddedResource Include="Roms\test_opcode.ch8">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Resource Include="Images\48px-Folder-open.svg.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Roms\c8_test.ch8">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

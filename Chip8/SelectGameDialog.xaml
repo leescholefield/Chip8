@@ -18,6 +18,11 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Vertical">
+            <Button x:Name="openFileButton" Width="24px" Height="24px" HorizontalAlignment="Right"
+                    Click="openFileButton_Click"
+                    ToolTip="Open file from your computer">
+                <Image Source="Images/48px-Folder-open.svg.png" />
+            </Button>
             <Label Content="Pre-loaded games:" />
             <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding Games}"
                      SelectionMode="Single" SelectionChanged="ListBox_SelectionChanged">

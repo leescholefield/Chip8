@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,6 +69,19 @@ namespace Chip8
             if (selected != null)
             {
                 SelectedGame = (KeyValuePair<string, string>)selected;
+            }
+        }
+
+        private void openFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog d = new OpenFileDialog();
+            if (d.ShowDialog() == true)
+            {
+                string fileName = d.FileName;
+                SelectedGame = new KeyValuePair<string, string>("", fileName);
+                // auto close this window
+                DialogResult = true;
+                Close();
             }
         }
     }
