@@ -31,7 +31,7 @@ namespace Chip8
             InitializeComponent();
 
             Chip8 = new Chip8Intepreter();
-            LoadGame("Roms/space_invaders.ch8");
+            LoadGame("Roms/Cave.ch8");
         }
 
         private void LoadGame(string loc)
@@ -73,10 +73,6 @@ namespace Chip8
                 DrawScreen();
                 Chip8.Redraw = false;
             }
-
-
-            opcodeLabel.Content = Chip8.Opcode.ToString("X");
-            pcLabel.Content = Chip8.ProgramCounter;
         }
 
         /// <summary>

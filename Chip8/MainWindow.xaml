@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Chip8"
         mc:Ignorable="d"
-        Title="MainWindow" SizeToContent="WidthAndHeight" Loaded="Window_Loaded" KeyDown="Key_Down" KeyUp="Key_Up">
+        Title="MainWindow" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize"
+        Loaded="Window_Loaded" KeyDown="Key_Down" KeyUp="Key_Up">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="boolToVis" />
@@ -13,27 +14,27 @@
             <Setter Property="Shape.Fill" Value="Black"/>
             <Setter Property="Shape.Stroke" Value="Black"/>
         </Style>
-      
+
     </Window.Resources>
     <Grid x:Name="root">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="600" />
-            <ColumnDefinition Width="100" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <Grid x:Name="paused_screen" Grid.Column="0" Opacity="0.5" Panel.ZIndex="5" Background="PaleVioletRed" Visibility="Hidden" IsHitTestVisible="False">
+        <!-- Top menu bar -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Open Game" Click="GameSelectButton_Click"/>
+                <MenuItem Header="_Options" Click="optionsButton_Click" />
+            </MenuItem>
+        </Menu>
+        
+        <!-- Main screen -->
+        <Grid x:Name="paused_screen" Grid.Row="1" Opacity="0.5" Panel.ZIndex="5" Background="PaleVioletRed" Visibility="Hidden" IsHitTestVisible="False">
             <Label Content="Paused" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <Grid Grid.Column="0" x:Name="screenRoot" Panel.ZIndex="1"/>
-
-        <StackPanel Grid.Column="1">
-            <Label x:Name="opcodeLabel"/>
-            <Label x:Name="pcLabel" />
-            <Label x:Name="indexLabel" />
-            <Button x:Name="optionsButton" Click="optionsButton_Click" Focusable="False">Options</Button>
-            <Button x:Name="gameSelectButton" Click="GameSelectButton_Click" Focusable="False">Games</Button>
-        </StackPanel>
-
+        <Grid Grid.Row="1" x:Name="screenRoot" Panel.ZIndex="1" Background="Black"/>
     </Grid>
 </Window>
