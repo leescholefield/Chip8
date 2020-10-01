@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Media;
 
 namespace Chip8.Emulator
 {
@@ -139,8 +140,7 @@ namespace Chip8.Emulator
                 DelayTimer--;
             if (SoundTimer > 0)
             {
-                if (SoundTimer == 1)
-                    // play sound
+                SystemSounds.Beep.Play();    
                 SoundTimer--;
             }
         }
